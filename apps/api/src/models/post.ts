@@ -1,13 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
-
-interface IPost extends Document {
-   
-    title: string,
-    image: string,
-    description: string,
-    category: string, //string Id of the category
-    comments: string[], //array Array of comment ids
-}
+import mongoose, { Schema } from 'mongoose';
 
 export const postSchema = new Schema (
     {
@@ -23,7 +14,7 @@ export const postSchema = new Schema (
             type: String
         },
         category: {
-            type: String
+            type: mongoose.Types.ObjectId, required: true, ref: 'Category'
         },
         comments: {
             type: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]

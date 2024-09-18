@@ -1,9 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
-
-/*interface IComment extends Document {
-  author: string,
-  content: string,
-}*/
+import mongoose, { Schema } from 'mongoose';
 
 export const commentSchema = new Schema(
   {

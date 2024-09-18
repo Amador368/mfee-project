@@ -22,7 +22,7 @@ const getPostById = async (req, res) => {
       //     options: {strictPopulate: false},
       //     match: { post_id: id },
       //   });
-      const post = await Post.findById(id).populate('comments');
+      const post = (await Post.findById(id).populate('comments'));
 
       if (!post) {
         return res.status(404).json({ message: 'Ups, Post not found' });
@@ -95,7 +95,8 @@ const createComment = async (req, res) => {
     const comment = await Comment.create(
       newComment
     );
-    //Post.findOne({_id : id }).populate({path: 'comments'});
+    const posts = await Post.findById(id);
+    await Post.findByIdAndUpdate(id, {comments:[...posts.comments, comment._id]});
     // Return the created comment with a 201 status code
     res.status(201).json(comment);
   } catch (error) {
